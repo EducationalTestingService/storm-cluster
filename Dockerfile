@@ -12,8 +12,8 @@ RUN --mount=type=secret,id=password \
     && printf "appuser:%s\n" "$(cat /run/secrets/password)" | chpasswd \
     && rm -f /etc/localtime \
     && ln -s /usr/share/zoneinfo/America/New_York /etc/localtime \
-    && mkdir /apps \
-    && chmod 1777 /apps
+    && mkdir -p /apps /media/logs \
+    && chmod 1777 /apps /media/logs
 
 WORKDIR /apps
 
@@ -41,10 +41,16 @@ RUN : install miniconda and put it in PATH \
 # Set the working directory to user home directory
 WORKDIR /home/appuser
 
-# Export ports needed to view ActiveMQ UI, view the Storm UI, and interact
-# with the engine via STOMP, respectively
+# Export ports needed to access cluster services
+# Storm main REST API port
 EXPOSE 7503
+# Storm log viewer port
+EXPOSE 7505
+# Web REST API port
 EXPOSE 7580
+# ActiveMQ UI port
 EXPOSE 9161
+# Stomp port
 EXPOSE 51513
+# JMS (Java Message Service) port
 EXPOSE 51515

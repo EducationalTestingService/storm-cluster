@@ -2,8 +2,8 @@
 
 set -euo pipefail
 
-IMAGE=storm-cluster
-NAME=storm-cluster
+IMAGE=nlparch-storm-cluster
+NAME=nlparch-storm-cluster
 
 if docker ps -a | sed 's/  */ /g' | cut -d ' ' -f 2 | egrep "^$IMAGE\$"
 then

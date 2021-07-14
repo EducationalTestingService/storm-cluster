@@ -3,6 +3,7 @@
 set -euo pipefail
 image_name=nlparch-storm-cluster
 
+# create "secret" random password for ec2-user
 secret=$(mktemp)
 trap "/bin/rm -f '$secret'" EXIT
 uuidgen > "$secret"
