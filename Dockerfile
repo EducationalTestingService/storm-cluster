@@ -7,9 +7,8 @@ RUN yum update -y \
                       bzip2 curl git hostname iproute tar unzip wget which \
     && yum clean all
 
-RUN --mount=type=secret,id=password \
-    useradd appuser \
-    && printf "appuser:%s\n" "$(cat /run/secrets/password)" | chpasswd \
+RUN useradd appuser \
+    && printf "appuser:%s\n" "$(uuidgen)" | chpasswd \
     && rm -f /etc/localtime \
     && ln -s /usr/share/zoneinfo/America/New_York /etc/localtime \
     && mkdir -p /apps /media/logs \
@@ -25,13 +24,13 @@ RUN : install miniconda and put it in PATH \
     && bash miniconda.sh -b -p miniconda \
     && rm -f miniconda.sh \
     && export PATH=$PWD/miniconda/bin:$PATH \
-    && conda install -p miniconda -c conda-forge mamba \
+    && conda install -y -p miniconda -c conda-forge mamba \
 
     # create storm cluster
     && conda create -y -c https://nlp.research.ets.org/etslabs -c conda-forge -p storm-cluster-env storm-cluster \
     # add mamba to storm cluster
     && export PATH=$PWD/miniconda/bin:$PATH \
-    && conda install -p storm-cluster-env -c conda-forge mamba \
+    && conda install -y -p storm-cluster-env -c conda-forge mamba \
 
     # Clean up
     && rm -fr miniconda \
