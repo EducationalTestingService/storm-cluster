@@ -2,12 +2,12 @@
 
 set -euo pipefail
 
-IMAGE=nlparch-storm-cluster
-NAME=nlparch-storm-cluster
+IMAGE=storm-cluster
+NAME=storm-instance
 
-if podman ps -a | sed 's/  */ /g' | cut -d ' ' -f 2 | egrep "^$IMAGE\$"
-then
-    echo container $IMAGE exists >&2
+# make sure that the container doesn't already exist
+if podman container exists "$NAME"; then
+    echo "Container '$NAME' already exists" >&2
     exit 1
 fi
 
