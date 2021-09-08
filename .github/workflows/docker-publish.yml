@@ -17,10 +17,12 @@ on:
   workflow_dispatch:
 
 env:
-  # Use docker.io for Docker Hub if empty
-  REGISTRY: ghcr.io
-  # github.repository as <account>/<repo>
-  IMAGE_NAME: ${{ github.repository }}
+  # # Use docker.io for Docker Hub if empty
+  # REGISTRY: ghcr.io
+  # # github.repository as <account>/<repo>
+  # IMAGE_NAME: ${{ github.repository }}
+  REGISTRY: docker.io
+  IMAGE_NAME: etslabs/storm-cluster
 
 
 jobs:
