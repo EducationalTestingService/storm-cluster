@@ -8,7 +8,9 @@ name: Publish Docker image
 # on:
 #   release:
 #     types: [published]
-on: workflow_dispatch
+on:
+  workflow_dispatch:
+    branches: [ docker-hub/NLPLAB-NLPLAB-3258-automate-deployment ]
 
 jobs:
   push_to_registry:
