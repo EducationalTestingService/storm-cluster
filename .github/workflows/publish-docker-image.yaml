@@ -5,12 +5,10 @@
 
 name: Publish Docker image
 
-# on:
-#   release:
-#     types: [published]
 on:
-  workflow_dispatch:
-    branches: [ docker-hub/NLPLAB-NLPLAB-3258-automate-deployment ]
+  push:
+    branches:
+      - 'latest'
 
 jobs:
   push_to_registry:
@@ -37,5 +35,5 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: etslabs/storm-cluster:latest
           labels: ${{ steps.meta.outputs.labels }}
