@@ -9,4 +9,5 @@
 
 ## Uploading to docker.io
 
-`USERNAME=docker_name bash registry_push.sh`
+Uploading to Docker HUB takes place in Github Action that is triggered
+when a new push takes place for `main` branch.
