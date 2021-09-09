@@ -1,13 +1,17 @@
-FROM amazonlinux
+FROM docker.io/library/amazonlinux:latest
 
 MAINTAINER Slava Andreyev <sandreyev@ets.org>
 
 RUN yum update -y \
-    && yum install -y procps-ng shadow-utils \
+    && yum install -y procps-ng shadow-utils sudo \
                       bzip2 curl git hostname iproute tar unzip wget which \
     && yum clean all
 
 RUN useradd appuser \
+    && usermod -aG wheel appuser \
+    && mkdir -p /etc/sudoers.d \
+    && bash -c 'echo "appuser  ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/appuser' \
+    && ls -la /etc/sudoers.d/ \
     && printf "appuser:%s\n" "$(uuidgen)" | chpasswd \
     && rm -f /etc/localtime \
     && ln -s /usr/share/zoneinfo/America/New_York /etc/localtime \
