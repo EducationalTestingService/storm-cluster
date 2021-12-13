@@ -31,7 +31,7 @@ RUN : install miniconda and put it in PATH \
     && conda install -y -p miniconda -c conda-forge mamba \
 
     # create storm cluster
-    && conda create -y -c ets -c conda-forge -p storm-cluster-env storm-cluster \
+    && conda create -y -c ets -c conda-forge -p storm-cluster-env 'storm-cluster>=1.1.4' \
     # add mamba to storm cluster
     && export PATH=$PWD/miniconda/bin:$PATH \
     && conda install -y -p storm-cluster-env -c conda-forge mamba \
