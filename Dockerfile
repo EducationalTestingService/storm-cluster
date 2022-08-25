@@ -24,17 +24,16 @@ WORKDIR /apps
 USER appuser
 
 RUN : install miniconda and put it in PATH \
-    && curl https://repo.anaconda.com/miniconda/Miniconda3-py39_4.9.2-Linux-x86_64.sh > miniconda.sh \
-    && bash miniconda.sh -b -p miniconda \
-    && rm -f miniconda.sh \
+    && curl -L https://github.com/conda-forge/miniforge/releases/download/4.10.3-10/Mambaforge-4.10.3-10-Linux-x86_64.sh > miniforge.sh \
+    && bash miniforge.sh -b -p miniconda \
+    && rm -f miniforge.sh \
     && export PATH=$PWD/miniconda/bin:$PATH \
-    && conda install -y -p miniconda -c conda-forge mamba \
 
     # create storm cluster
-    && conda create -y -c ets -c conda-forge -p storm-cluster-env 'storm-cluster>=1.1.4' \
+    && mamba create -y -c ets -c conda-forge -p storm-cluster-env 'storm-cluster>=1.1.4' \
     # add mamba to storm cluster
     && export PATH=$PWD/miniconda/bin:$PATH \
-    && conda install -y -p storm-cluster-env -c conda-forge mamba \
+    && mamba install -y -p storm-cluster-env -c conda-forge mamba \
 
     # Clean up
     && rm -fr miniconda \
