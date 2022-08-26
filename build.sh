@@ -1,4 +1,4 @@
-#! /bin/sh
+#! /bin/bash
 
 set -euo pipefail
 image_name=storm-cluster

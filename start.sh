@@ -1,4 +1,4 @@
-#! /bin/sh
+#! /bin/bash
 
 set -euo pipefail
 
@@ -13,4 +13,4 @@ fi
 
 podman run \
        -d --name $NAME \
-       $IMAGE bash -c "tail -f /dev/null"
+       $IMAGE bash -c "tail -f /etc/hostname"
