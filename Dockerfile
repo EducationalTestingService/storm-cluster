@@ -4,7 +4,7 @@ MAINTAINER Slava Andreyev <sandreyev@ets.org>
 
 RUN yum update -y \
     && yum install -y procps-ng shadow-utils sudo \
-                      bzip2 curl git hostname iproute tar unzip wget which \
+                      bzip2 findutils git hostname iproute tar unzip wget which \
     && yum clean all
 
 RUN useradd appuser \
@@ -24,17 +24,15 @@ WORKDIR /apps
 USER appuser
 
 RUN : install miniconda and put it in PATH \
-    && curl -L https://github.com/conda-forge/miniforge/releases/download/4.10.3-10/Mambaforge-4.10.3-10-Linux-x86_64.sh > miniforge.sh \
+    && curl -L https://github.com/conda-forge/miniforge/releases/download/23.3.1-1/Mambaforge-23.3.1-1-Linux-x86_64.sh > miniforge.sh \
     && bash miniforge.sh -b -p miniconda \
     && rm -f miniforge.sh \
     && export PATH=$PWD/miniconda/bin:$PATH \
-
     # create storm cluster
     && mamba create -y -c ets -c conda-forge -p storm-cluster-env 'storm-cluster>=1.1.6' \
     # add mamba to storm cluster
     && export PATH=$PWD/miniconda/bin:$PATH \
     && mamba install -y -p storm-cluster-env -c conda-forge mamba \
-
     # Clean up
     && rm -fr miniconda \
     && rm -fr ~/.cache/pip \
