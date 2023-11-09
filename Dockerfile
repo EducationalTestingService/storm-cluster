@@ -3,8 +3,8 @@ FROM docker.io/library/amazonlinux:latest
 MAINTAINER Slava Andreyev <sandreyev@ets.org>
 
 RUN yum update -y \
-    && yum install -y procps-ng shadow-utils sudo \
-                      bzip2 findutils git hostname iproute tar unzip wget which \
+    && yum install -y procps-ng shadow-utils sudo bzip2 findutils git \
+           hostname iproute tar unzip wget which libnsl libxcrypt-compat \
     && yum clean all
 
 RUN useradd appuser \
