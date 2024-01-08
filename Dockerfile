@@ -39,6 +39,11 @@ RUN : install miniconda and put it in PATH \
     && rm -fr ~/.cache/pip \
     && rm -fr ~/.m2 ~/.lein
 
+WORKDIR /apps/storm-cluster-env
+
+# Create a backup of files that could be shadowed in Fargage containers
+RUN tar zcf backup.tar.gz conf.d storm/conf storm/log4j2
+
 # Set the working directory to user home directory
 WORKDIR /home/appuser
 
